@@ -12,15 +12,16 @@ string gstreamer_pipeline (int capture_width, int capture_height, int display_wi
 }
 
 int main() {
-    #ifdef __APPLE__ || __MACH__
+    #if defined(__APPLE__) || defined(__MACH__)
         cv::VideoCapture cap = cv::VideoCapture(0);
         cout << "Using MacOS Device Capture" << endl;
-    #elif __linux__
-        string pipeline = gstreamer_pipeline(1920, 1080, 1920, 1080, 60, 0);
+    #elif defined(__linux__)
+        string pipeline = gstreamer_pipeline(1920, 1080, 1920, 1080, 30, 0);
         cv::VideoCapture cap = cv::VideoCapture(pipeline, cv::CAP_GSTREAMER);
         cout << "Using Linux Device Capture (PiCam)" << endl;
     #endif
     if(!cap.isOpened()) {
+        cout << "Failed to Open Camera, Exiting..." << endl;
         exit(1);
     }
     while(1) {
