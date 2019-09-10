@@ -4,14 +4,6 @@
 
 using namespace std;
 
-void bar() {
-    cout << "Hello, World From Thread 1" << endl;
-}
-
-void foo() {
-    cout << "Hello, World From Thread 2" << endl;
-}
-
 int main() {
     cv::VideoCapture cap = cv::VideoCapture(0);
     if(!cap.isOpened()) {
@@ -33,11 +25,5 @@ int main() {
 
     cap.release();
     cv::destroyAllWindows();
-
-    thread th1(bar);
-    thread th2(foo);
-
-    th1.join();
-    th2.join();
     return 0;
 }
